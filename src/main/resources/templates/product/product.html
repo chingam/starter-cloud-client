@@ -1,0 +1,99 @@
+<div th:remove="tag" xmlns:th="http://www.thymeleaf.org">
+<script src="/page/product/product.js"></script>
+	<section>
+		<div id="mess" class="row"></div>
+		<div class="row">
+			<div class="col-md-12">
+				<table id="datalist" class="table table-striped" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th>Product name</th>
+								<th>Category</th>
+								<th>Group</th>
+								<th>Cost price</th>
+								<th>Sales price</th>
+								<th class="no-sort">
+									<div class="pull-right">
+										<button class="btn btn-info" type="button" id="addBtn" style="padding: 3px 4px;" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span>Add</button>
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody id="datalistBody">
+							<tr th:fragment="datas" th:each="product : ${products}">
+								<td th:text="${product.name}"></td>
+								<td th:text="${product.group}"></td>
+								<td th:text="${product.category}"></td>
+								<td th:text="${#numbers.formatDecimal(product.costPrice, 0, 'COMMA', 2, 'POINT')}"></td>
+								<td th:text="${#numbers.formatDecimal(product.salesPrice, 0, 'COMMA', 2, 'POINT')}"></td>
+								<td style="text-align: right">
+									<button th:attr="data-url='/product/' + ${product.code}" class="btn btn-info btn-sm editBtn" style="padding: 2px 6px;"><span class="glyphicon glyphicon-edit"></span></button>
+									<button th:attr="data-url='/product/' + ${product.code}" class="btn btn-danger btn-sm deleteBtn" style="padding: 2px 5px;"><span class="glyphicon glyphicon-trash"></span></button>
+								</td>
+							</tr>
+						</tbody>
+				</table>
+			</div>
+		</div>
+			<!-- Modal window -->
+		<div data-backdrop="static" data-keyboard="false" id="myModal" class="modal fade">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Product setup</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row" th:fragment="productModal" style="padding-top:9px">
+							<form id="mainform" class="form-horizontal" method="" autocomplete="off" th:action="@{'/product'}">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-sm-3" for="name" >Product name:</label>
+										<div class="col-sm-5">
+											<input th:field="*{product.name}" name="name" type="text" class="form-control" data-rule-required="true" id="name" placeholder="Product name"/>
+											<input name="code" th:value="${product.code}" type="hidden" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-3" for="category" >Product category:</label>
+										<div class="col-sm-5">
+											<select th:field="*{product.category}" id="category" class="include form-control">
+												<option value="F">Food</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-3" for="group" >Product group:</label>
+										<div class="col-sm-5">
+											<select th:field="*{product.group}" id="group" class="include form-control">
+												<option value="D">Desert</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="control-label col-sm-3" for="costPrice" >Cost price:</label>
+										<div class="col-sm-5">
+											<input th:field="*{product.costPrice}" name="costPrice" type="text" class="form-control" data-rule-number="true" id="costPrice" placeholder="Cost price"/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-sm-3" for="salesPrice" >Sales price:</label>
+										<div class="col-sm-5">
+											<input th:field="*{product.salesPrice}" name="salesPrice" type="text" class="form-control" data-rule-number="true" id="salesPrice" placeholder="Sales price"/>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="modal-footer" style="padding: 5px;">
+						<button id="msaveBtn" type="button" class="btn btn-success" style="padding: 3px 4px;">Save</button>
+						<button type="button" class="btn btn-default" style="padding: 3px 4px;" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>	
