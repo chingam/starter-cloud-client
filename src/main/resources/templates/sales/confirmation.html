@@ -1,0 +1,108 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:text="#{sales.confirmation.title}"></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+		<link href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="screen"/>
+		<link href="/webjars/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" media="screen"/>
+		<link href="/common/css/common.css" rel="stylesheet" media="screen"/>
+		<link href="/webjars/jquery-ui/1.12.1/jquery-ui.css" rel="stylesheet" media="screen"/>
+		
+		<script src="/webjars/jquery/3.2.1/jquery.min.js"></script>
+		
+		<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="/webjars/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
+		<script src="/webjars/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
+		<script src="/webjars/jquery-validation/1.17.0/jquery.validate.min.js"></script>
+		<script src="/page/sales/sales.js"></script>
+		<script src="/webjars/jquery-ui/1.12.1/jquery-ui.min.js"></script>
+		
+	</head>
+	<body>
+	<!-- <div id="loadingmask2" style="display: block;">
+	<div id="loadingdots">
+		<div id="loadingdots_1" class="loadingdots"></div>
+		<div id="loadingdots_2" class="loadingdots"></div>
+		<div id="loadingdots_3" class="loadingdots"></div>
+	</div>
+</div> -->
+		<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" style="padding-top: 11px;">
+					<span style="padding-right: 5px;color:#fff" th:text="#{sales.confirmation.header}">
+						<!-- <img style="height: 40px; width: auto;" alt="Brand" src="mTrak.ico" /> -->
+					</span>
+				</a>
+			</div>
+		</div>
+	</nav>
+		<div class="container" style="padding-top: 60px;">
+		<div id="mess" class="container"></div>
+			<div class="row">
+				<div class="col-md-12 prevselectedservice">
+					<form id="mainform" class="form-horizontal" method="" autocomplete="off" th:action="@{''}">
+						<fieldset>
+							<div class="form-group" style="margin-bottom:0 px">
+								<label for="inputEmail" class="control-label col-md-6" th:text="#{sales.label.discount}"></label>
+								<div class="col-md-6">
+									<p class="form-control-static emphasis nowrap" th:text="${#strings.isEmpty(sales.discount) ? '0.00' : sales.discount}"></p>
+								</div>
+							</div>
+							<div class="form-group" style="margin-bottom:0 px">
+								<label for="inputEmail" class="control-label col-md-6" th:text="#{sales.label.tax}"></label>
+								<div class="col-md-6">
+									<p class="form-control-static emphasis nowrap" th:text="${#strings.isEmpty(sales.tax) ? '0.00' : sales.tax}"></p>
+								</div>
+							</div>
+							<div class="form-group" style="margin-bottom:0 px">
+								<label for="inputEmail" class="control-label col-md-6" th:text="#{sales.label.subtotal}"></label>
+								<div class="col-md-6">
+									<p class="form-control-static emphasis nowrap" th:text="${sales.subTotal}"></p>
+								</div>
+							</div>
+							<div class="form-group" style="margin-bottom:0 px">
+								<label for="inputEmail" class="control-label col-md-6" th:text="#{sales.label.grandtotal}"></label>
+								<div class="col-md-6">
+									<p class="form-control-static emphasis nowrap" th:text="${sales.grandTotal}"></p>
+								</div>
+							</div>
+						</fieldset>
+					</form>
+					<table class="table table-striped" cellspacing="0" width="100%">
+							<thead>
+								<tr style="background-color: #5bc0de; color: #fff">
+									<th>Items</th>
+									<th>Qty</th>
+									<th>Sales price</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="product : ${sales.products}">
+									<td th:text="${product.name}"></td>
+									<td th:text="${product.quantity}"></td>
+									<td th:text="${product.price}"></td>
+									<td th:text="${product.totalPrice}"></td>
+								</tr>
+								
+							</tbody>
+						</table>
+				</div>
+				
+				<div class="pull-right">
+					<button class="btn btn-info" type="button" id="printBtn" style="padding: 3px 4px;" th:text="#{sales.btn.print}">Print</button>
+					<a th:href="@{'/sales'}"><button class="btn btn-info" type="button" id="salesAnother" style="padding: 3px 4px;" th:text="#{sales.btn.salesanother}">Sales another</button></a>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
